@@ -1,0 +1,13 @@
+<div class="row" id="gameview">
+  <h1>{{game.colorPrompt}}</h1>
+  {{game.factory}}
+  <button ng-click="game.refresh()">Refresh Colors</button>
+
+
+  <p>Current Color: {{game.currentColor}}</p>
+  <h3 ng-if="game.messageText != ''" class="alert alert-warning">{{game.messageText}}</h3>
+{{game.colorList.colors}}
+  <div id="button-container">
+    <div class="color-button" ng-repeat="color in game.colorList.colors" ng-style="{background: color.name}" ng-click="game.handleInput(color.name)">asdf</div>
+  </div>
+</div>
