@@ -9,14 +9,27 @@ colorBlocks.factory('DataFactory', ['$http', function($http) {
 
   function getColors() {
     console.log('datafactory started ajax');
-    return $http({
+    $http({
       method: 'GET',
       url: '/colors',
     }).then(function(response) {
       blockColors.colors = response.data;
       console.log('datafactory ', blockColors.colors);
-      blockColors.randomColor = blockColors.colors[randomNumber(0, blockColors.colors.length - 1)];
+      blockColors.randomColor = blockColors.colors[randomNumber(0, blockColors.colors.length - 1)].name;
       console.log('datafactory ', blockColors.randomColor);
+    }, function(response) {
+      console.log(response);
+    });
+  }
+
+  function addColor(newColorObject) {
+    console.log('datafactory started ajax');
+    $http({
+      method: 'POST',
+      url: '/colors',
+      data: newColorObject
+    }).then(function(response) {
+      getColors();
     }, function(response) {
       console.log(response);
     });
@@ -31,6 +44,7 @@ colorBlocks.factory('DataFactory', ['$http', function($http) {
 
   return {
     allColors: blockColors,
-    updateColors: getColors
+    updateColors: getColors,
+    addColor: addColor
   };
 }]);

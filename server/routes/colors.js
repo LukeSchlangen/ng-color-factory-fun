@@ -30,4 +30,26 @@ router.get('/', function(req, res) {
   });
 });
 
+
+router.post('/', function(req, res) {
+  var newColor = req.body;
+  pool.connect(function(err, client, done) {
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }else{
+      client.query('INSERT INTO colors (name) VALUES ($1);', [newColor.name], function(err, result) {
+        done(); // close the connection db
+        if(err){
+          console.log(err);
+          res.sendStatus(500); // the world exploded
+        }else{
+          console.log(result.rows);
+          res.status(200).send(result.rows);
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

@@ -1,4 +1,4 @@
-colorBlocks.controller('SettingsController', ['DataFactory', function(DataFactory, $scope) {
+colorBlocks.controller('SettingsController', ['DataFactory', function(DataFactory) {
   console.log("settings controller running");
   var self = this;
   // self.colors = DataFactory.colors;
@@ -7,9 +7,7 @@ colorBlocks.controller('SettingsController', ['DataFactory', function(DataFactor
 
   console.log(self.colorList.name);
   self.addColor = function() {
-    self.colors.push(self.newColor.name);
-    console.log(self.colorList);
-    self.newColor = {};
+    DataFactory.addColor(self.newColor);
   };
 
 }]);
